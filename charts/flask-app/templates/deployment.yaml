@@ -9,7 +9,7 @@ spec:
   selector:
     matchLabels:
       app.kubernetes.io/instance: {{ .Release.Name }}
-      app.kubernetes.io/name: {{ include "flask-app.name" . }}
+      app.kubernetes.io/name: {{ include "flask-app.fullname" . }}
   template:
     metadata:
       labels:
