@@ -11,9 +11,8 @@ app.kubernetes.io/managed-by: {{ .Release.Service }}
 {{- end -}}
 
 {{- define "flask-app.serviceAccountName" -}}
-{{- $sa := .Values.serviceAccount -}}
-{{- if and $sa $sa.name }}
-{{- $sa.name -}}
+{{- if and .Values.serviceAccount .Values.serviceAccount.name }}
+{{- .Values.serviceAccount.name -}}
 {{- else -}}
 {{- include "flask-app.fullname" . -}}
 {{- end -}}
