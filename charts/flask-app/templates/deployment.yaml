@@ -9,7 +9,7 @@ spec:
   selector:
     matchLabels:
       app.kubernetes.io/instance: {{ .Release.Name }}
-      app.kubernetes.io/name: {{ include "flask-app.fullname" . }}
+      app.kubernetes.io/name: {{ include "flask-app.name" . }}
   template:
     metadata:
       labels:
@@ -17,9 +17,12 @@ spec:
         app.kubernetes.io/instance: {{ .Release.Name }}
     spec:
       serviceAccountName: {{ include "flask-app.serviceAccountName" . }}
+      # Required for AKS to pull from a private ACR
+      imagePullSecrets:
+        - name: acr-secret
       containers:
         - name: flask
-          # Using quotes around the whole image string is safer
+          # Safer image logic to prevent the 'nil pointer' error
           {{- if .Values.image }}
           image: "{{ .Values.image.repository | default "myreg2026.azurecr.io/flask-docker-app" }}:{{ .Values.image.tag | default "latest" }}"
           imagePullPolicy: {{ .Values.image.pullPolicy | default "IfNotPresent" }}
