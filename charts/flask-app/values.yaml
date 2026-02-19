@@ -10,7 +10,7 @@ service:
   port: 5000
 
 serviceAccount:
-  create: false
+  create: true
   name: ""
 
 resources: {}
