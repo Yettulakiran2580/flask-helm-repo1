@@ -1,6 +1,7 @@
 replicaCount: 1
 
 image:
+  # Verify this EXACT name exists in your Azure Container Registry
   repository: myreg2026.azurecr.io/flask-docker-app
   tag: "latest"
   pullPolicy: IfNotPresent
@@ -14,9 +15,6 @@ serviceAccount:
   name: ""
 
 resources: {}
-
 nodeSelector: {}
-
 tolerations: []
-
 affinity: {}
