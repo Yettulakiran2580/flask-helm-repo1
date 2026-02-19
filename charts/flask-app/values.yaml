@@ -1,7 +1,6 @@
 replicaCount: 1
 
 image:
-  # Updated to point to your Azure Container Registry
   repository: myreg2026.azurecr.io/flask-docker-app
   tag: "latest"
   pullPolicy: IfNotPresent
