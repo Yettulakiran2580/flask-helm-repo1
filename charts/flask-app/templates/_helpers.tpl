@@ -1,20 +1,27 @@
+{{/*
+Create a default fully qualified app name.
+*/}}
 {{- define "flask-app.fullname" -}}
 {{- printf "%s-%s" .Release.Name .Chart.Name | trunc 63 | trimSuffix "-" -}}
 {{- end -}}
 
+{{/*
+Common labels
+*/}}
 {{- define "flask-app.labels" -}}
 app.kubernetes.io/name: {{ include "flask-app.fullname" . }}
 app.kubernetes.io/instance: {{ .Release.Name }}
-# The line below is the fix: added | quote
 app.kubernetes.io/version: {{ .Chart.AppVersion | quote }}
 app.kubernetes.io/managed-by: {{ .Release.Service }}
 {{- end -}}
 
+{{/*
+Create the name of the service account to use
+*/}}
 {{- define "flask-app.serviceAccountName" -}}
-{{- $sa := .Values.serviceAccount -}}
-{{- if and $sa $sa.name }}
-{{- $sa.name -}}
+{{- if .Values.serviceAccount.create -}}
+    {{- default (include "flask-app.fullname" .) .Values.serviceAccount.name -}}
 {{- else -}}
-{{- include "flask-app.fullname" . -}}
+    {{- default "default" .Values.serviceAccount.name -}}
 {{- end -}}
 {{- end -}}
