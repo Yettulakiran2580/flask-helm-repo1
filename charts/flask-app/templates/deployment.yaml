@@ -5,8 +5,7 @@ metadata:
   labels:
     {{- include "flask-app.labels" . | nindent 4 }}
 spec:
-  {{- $img := .Values.image | default dict }}
-  replicas: {{ default 1 .Values.replicaCount }}
+  replicas: {{ .Values.replicaCount | default 1 }}
   selector:
     matchLabels:
       app.kubernetes.io/instance: {{ .Release.Name }}
@@ -20,8 +19,9 @@ spec:
       serviceAccountName: {{ include "flask-app.serviceAccountName" . }}
       containers:
         - name: flask
-          image: "{{ $img.repository | default "bharathchatakondu/flask-docker-app" }}:{{ $img.tag | default "latest" }}"
-          imagePullPolicy: {{ $img.pullPolicy | default "IfNotPresent" }}
+          # Using quotes around the whole image string is safer
+          image: "{{ .Values.image.repository | default "myreg2026.azurecr.io/flask-docker-app" }}:{{ .Values.image.tag | default "latest" }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy | default "IfNotPresent" }}
           ports:
             - containerPort: 5000
           resources:
