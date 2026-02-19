@@ -20,8 +20,13 @@ spec:
       containers:
         - name: flask
           # Using quotes around the whole image string is safer
+          {{- if .Values.image }}
           image: "{{ .Values.image.repository | default "myreg2026.azurecr.io/flask-docker-app" }}:{{ .Values.image.tag | default "latest" }}"
           imagePullPolicy: {{ .Values.image.pullPolicy | default "IfNotPresent" }}
+          {{- else }}
+          image: "myreg2026.azurecr.io/flask-docker-app:latest"
+          imagePullPolicy: IfNotPresent
+          {{- end }}
           ports:
             - containerPort: 5000
           resources:
