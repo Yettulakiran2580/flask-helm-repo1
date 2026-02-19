@@ -1,0 +1,13 @@
+
+Thank you for installing {{ .Chart.Name }}.
+
+{{- $svc := .Values.service | default dict -}}
+The application exposes port {{ $svc.port | default 5000 }}.
+
+To access the service (ClusterIP):
+
+  kubectl get svc {{ include "flask-app.fullname" . }}
+
+If you set `service.type` to `LoadBalancer`, wait for an external IP and then:
+
+  kubectl get svc {{ include "flask-app.fullname" . }}

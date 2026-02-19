@@ -1,0 +1,22 @@
+replicaCount: 1
+
+image:
+  repository: bharathchatakondu/flask-docker-app
+  tag: "latest"
+  pullPolicy: IfNotPresent
+
+service:
+  type: ClusterIP
+  port: 5000
+
+serviceAccount:
+  create: false
+  name: ""
+
+resources: {}
+
+nodeSelector: {}
+
+tolerations: []
+
+affinity: {}
