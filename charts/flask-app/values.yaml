@@ -11,8 +11,8 @@ service:
   port: 5000
 
 serviceAccount:
-  create: true
-  name: ""
+  create: false
+  name: default
 
 resources: {}
 nodeSelector: {}
