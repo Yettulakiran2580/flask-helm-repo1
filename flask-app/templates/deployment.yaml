@@ -24,10 +24,10 @@ spec:
         - name: flask
           # Safer image logic to prevent the 'nil pointer' error
           {{- if .Values.image }}
-          image: "{{ .Values.image.repository | default "myreg2026.azurecr.io/flask-docker-app" }}:{{ .Values.image.tag | default "latest" }}"
+          image: "{{ .Values.image.repository | default "myres2026.azurecr.io/flask-docker-app" }}:{{ .Values.image.tag | default "latest" }}"
           imagePullPolicy: {{ .Values.image.pullPolicy | default "IfNotPresent" }}
           {{- else }}
-          image: "myreg2026.azurecr.io/flask-docker-app:latest"
+          image: "myres2026.azurecr.io/flask-docker-app:latest"
           imagePullPolicy: IfNotPresent
           {{- end }}
           ports:
