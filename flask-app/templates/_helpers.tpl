@@ -19,9 +19,12 @@ app.kubernetes.io/managed-by: {{ .Release.Service }}
 Create the name of the service account to use
 */}}
 {{- define "flask-app.serviceAccountName" -}}
-{{- if .Values.serviceAccount.create -}}
-    {{- default (include "flask-app.fullname" .) .Values.serviceAccount.name -}}
+{{- $sa := .Values.serviceAccount -}}
+{{- if and $sa (kindIs "map" $sa) (default false $sa.create) -}}
+    {{- default (include "flask-app.fullname" .) $sa.name -}}
+{{- else if and $sa (kindIs "map" $sa) -}}
+    {{- default "default" $sa.name -}}
 {{- else -}}
-    {{- default "default" .Values.serviceAccount.name -}}
+    default
 {{- end -}}
 {{- end -}}
