@@ -17,8 +17,8 @@ jobs:
 deploy:
     needs: lint
     runs-on: ubuntu-latest
-    #if: secrets.KUBECONFIG != ''
-     if: ${{ secrets.KUBECONFIG != '' }}
+    if: secrets.KUBECONFIG != ''
+     #if: ${{ secrets.KUBECONFIG != '' }}
     steps:
       - uses: actions/checkout@v4
       - name: Set up Helm
